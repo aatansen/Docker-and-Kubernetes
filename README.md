@@ -11,6 +11,12 @@
     - [Busybox Container](#busybox-container)
     - [Alpine Container](#alpine-container)
     - [Alpine vs Busybox](#alpine-vs-busybox)
+    - [Notes I](#notes-i)
+  - [Port and Volume Mapping in the Docker Containers](#port-and-volume-mapping-in-the-docker-containers)
+    - [Running Nginx with exposed Port](#running-nginx-with-exposed-port)
+    - [Nginx container with custom content](#nginx-container-with-custom-content)
+    - [Using path variable in volume mapping](#using-path-variable-in-volume-mapping)
+    - [Notes II](#notes-ii)
 
 ### Docker Setup
 
@@ -57,10 +63,80 @@
 
 #### Alpine vs Busybox
 
-- Alpine is based on busybox 
+- Alpine is based on busybox
 - Alpine is fully featured OS
 - Busybox is not OS
 - Busybox is collection of utilities
 
+[⬆️ Go to Context](#context)
+
+#### Notes I
+
+> [!NOTE]
+> To get an image `docker pull image_name`
+>
+> To run a container interactively `docker run -it image_name`
+>
+> To exit a container `docker exit`
+>
+> To get the list of running container `docker ps`
+>
+> `-it` is refer to `interactive` & `TTY`
+
+[⬆️ Go to Context](#context)
+
+### Port and Volume Mapping in the Docker Containers
+
+#### Running Nginx with exposed Port
+
+- Get the image `docker pull nginx`
+- Run the container `docker run nginx`
+- Open browser and navigate to `localhost:80`
+  - It will refuse to connect
+  - Stop the container
+  - To stop a running container `docker stop container_id`
+    > only first three letter of the `container_id` will do the work
+  - Run `docker run -p 8080:80 nginx`
+  - Now navigate to `localhost:8080`
+
+[⬆️ Go to Context](#context)
+
+#### Nginx container with custom content
+
+- Create html file `index.html`
+- Copy the path where `index.html` is created `full_path\containers\ngnix`
+- Now run `docker run -p 8081:80 -v full_path\containers\ngnix:/usr/share/nginx/html nginx`
+  > In powershell: `docker run -p 8081:80 -v ${PWD}:/usr/share/nginx/html nginx`
+- Navigate to `localhost:8081` to see the output of `index.html`
+- Adding favicon to the project
+  - Generate free favicon from text [favicon.io](https://favicon.io/favicon-generator/)
+  - Unzip the downloaded favicon in `index.html` path
+  - Now add those in the head section of html
+
+    ```html
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    ```
+
+[⬆️ Go to Context](#context)
+
+#### Using path variable in volume mapping
+
+- In linux run `docker run -p 8081:80 -v $PWD:/usr/share/nginx/html nginx`
+- In windows `PowerShell` or `Git Bash` run `docker run -p 8081:80 -v ${PWD}:/usr/share/nginx/html nginx`
+
+[⬆️ Go to Context](#context)
+
+#### Notes II
+
+> [!NOTE]
+> To stop a container `docker stop container_id`
+>
+> `-p` is refer to port & `-v` is refer to `volume`
+>
+> For valume mapping `$PWD` is used
+>
 
 [⬆️ Go to Context](#context)
