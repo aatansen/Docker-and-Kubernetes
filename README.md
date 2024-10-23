@@ -77,7 +77,7 @@
 >
 > To run a container interactively `docker run -it image_name`
 >
-> To exit a container `docker exit`
+> To exit a container `exit`
 >
 > To get the list of running container `docker ps`
 >
