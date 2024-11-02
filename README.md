@@ -17,6 +17,9 @@
     - [Nginx container with custom content](#nginx-container-with-custom-content)
     - [Using path variable in volume mapping](#using-path-variable-in-volume-mapping)
     - [Notes II](#notes-ii)
+  - [Docker Containers Management (Ubuntu, NGINX)](#docker-containers-management-ubuntu-nginx)
+    - [Running containers in background](#running-containers-in-background)
+    - [Notes III](#notes-iii)
 
 ### Docker Setup
 
@@ -138,5 +141,23 @@
 >
 > For valume mapping `$PWD` is used
 >
+
+[⬆️ Go to Context](#context)
+
+### Docker Containers Management (Ubuntu, NGINX)
+
+#### Running containers in background
+
+- Run `docker run hello-world`
+  - This will terminate automatically as there is no process to run in the container. Same goes for `docker run alpine`
+- Check history `docker history alpine`
+- Run in background with `-d` `docker run -p 8081:80 -d nginx`
+
+#### Notes III
+
+> [!NOTE]
+> To check container history `docker history container_name` e.g: `docker history alpine`
+>
+> To run container in background `-d` e.g: `docker run -p 8081:80 -d nginx`
 
 [⬆️ Go to Context](#context)
