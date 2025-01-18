@@ -20,6 +20,7 @@
   - [Docker Containers Management (Ubuntu, NGINX)](#docker-containers-management-ubuntu-nginx)
     - [Running containers in background](#running-containers-in-background)
     - [Notes III](#notes-iii)
+    - [Running container with Pseudo TTY](#running-container-with-pseudo-tty)
 
 ### Docker Setup
 
@@ -159,5 +160,14 @@
 > To check container history `docker history container_name` e.g: `docker history alpine`
 >
 > To run container in background `-d` e.g: `docker run -p 8081:80 -d nginx`
+
+[⬆️ Go to Context](#context)
+
+#### Running container with Pseudo TTY
+
+- To run a container with a **Pseudo TTY**, we use the `-t` option. 
+  - `docker run -i -t alpine`
+- We can also combine `-i` (interactive) and `-t` (TTY) into a single option
+  - `docker run -it alpine`
 
 [⬆️ Go to Context](#context)
