@@ -21,6 +21,10 @@
     - [Running containers in background](#running-containers-in-background)
     - [Notes III](#notes-iii)
     - [Running container with Pseudo TTY](#running-container-with-pseudo-tty)
+    - [Creating multiple Ubuntu containers from the same image](#creating-multiple-ubuntu-containers-from-the-same-image)
+    - [Running multiple Nginx servers](#running-multiple-nginx-servers)
+    - [Notes IV](#notes-iv)
+    - [Cleaning up stopped containers](#cleaning-up-stopped-containers)
 
 ### Docker Setup
 
@@ -77,15 +81,12 @@
 #### Notes I
 
 > [!NOTE]
-> To get an image `docker pull image_name`
 >
-> To run a container interactively `docker run -it image_name`
->
-> To exit a container `exit`
->
-> To get the list of running container `docker ps`
->
-> `-it` is refer to `interactive` & `TTY`
+> - To get an image `docker pull image_name`
+> - To run a container interactively `docker run -it image_name`
+> - To exit a container `exit`
+> - To get the list of running container `docker ps`
+> - `-it` is refer to `interactive` & `TTY`
 
 [⬆️ Go to Context](#context)
 
@@ -108,8 +109,9 @@
 #### Nginx container with custom content
 
 - Create html file `index.html`
-- Copy the path where `index.html` is created `full_path\containers\ngnix`
-- Now run `docker run -p 8081:80 -v full_path\containers\ngnix:/usr/share/nginx/html nginx`
+- Copy the path where `index.html` is created `full_path_of_ngnix_container`
+  - `H:...\Docker-and-Kubernetes\containers\ngnix`
+- Now run `docker run -p 8081:80 -v "full_path_of_ngnix_container:/usr/share/nginx/html" nginx`
   > In powershell: `docker run -p 8081:80 -v ${PWD}:/usr/share/nginx/html nginx`
 - Navigate to `localhost:8081` to see the output of `index.html`
 - Adding favicon to the project
@@ -136,12 +138,11 @@
 #### Notes II
 
 > [!NOTE]
-> To stop a container `docker stop container_id`
 >
-> `-p` is refer to port & `-v` is refer to `volume`
->
-> For valume mapping `$PWD` is used
->
+> - To stop a container `docker stop container_id`
+> - `-p` is refer to port & `-v` is refer to `volume`
+> - For valume mapping `$PWD` is used
+> - New name can be assign by `--name` option
 
 [⬆️ Go to Context](#context)
 
@@ -157,9 +158,9 @@
 #### Notes III
 
 > [!NOTE]
-> To check container history `docker history container_name` e.g: `docker history alpine`
 >
-> To run container in background `-d` e.g: `docker run -p 8081:80 -d nginx`
+> - To check container history `docker history container_name` e.g: `docker history alpine`
+> - To run container in background `-d` e.g: `docker run -p 8081:80 -d nginx`
 
 [⬆️ Go to Context](#context)
 
@@ -169,5 +170,57 @@
   - `docker run -i -t alpine`
 - We can also combine `-i` (interactive) and `-t` (TTY) into a single option
   - `docker run -it alpine`
+
+[⬆️ Go to Context](#context)
+
+#### Creating multiple Ubuntu containers from the same image
+
+- Running the following command in different terminal sessions will create multiple containers:
+  - `docker run -it ubuntu`
+- Each execution of this command starts a new container based on the Ubuntu image.
+
+- Characteristics of Created Containers:
+  - Each container has a unique Container ID.
+    - `docker ps -a --format "{{.ID}} {{.Image}}"`
+  - Each container runs in isolation from the others.
+  - Each container has its own filesystem and processes.
+    - We can check it by creating different files in those containers
+  - Each container has different IP addresses assigned by Docker.
+    - `hostname -i`
+  - Changes made inside a container do not affect the base image or other containers unless explicitly shared.
+
+[⬆️ Go to Context](#context)
+
+#### Running multiple Nginx servers
+
+- Go to the custom content path 1 `containers/ngnix1`
+  - Run `docker run -p 8081:80 -v ${PWD}:/usr/share/nginx/html --name nginx1 nginx`
+- Go to the custom content path 2 `containers/ngnix2`
+  - Run `docker run -p 8082:80 -v ${PWD}:/usr/share/nginx/html --name nginx2 nginx`
+- Now we can access both nginx by navigating to `localhost:8081` and `localhost:8082`
+
+> As we are using different ports, we can run multiple containers on ngnix
+
+[⬆️ Go to Context](#context)
+
+#### Notes IV
+
+> [!NOTE]
+>
+> - To remove a container `docker rm name/id`
+> - To remove all containers `docker rm $(docker ps -a -q)`
+> - To restart a previously run container `docker start/restart name/id`
+> - To get into running container `docker attach running_container_id`
+> - To restart and get into container `docker start -ai container_id`
+
+[⬆️ Go to Context](#context)
+
+#### Cleaning up stopped containers
+
+- `docker run name/id` create new container
+- Docker start is used to start a stopped container
+- `docker rm name/id` is used to remove a container
+- Remove multiple containers `docker rm container_id1 container_id2`
+- Remove all containers `docker container prune`
 
 [⬆️ Go to Context](#context)
