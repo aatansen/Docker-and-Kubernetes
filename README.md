@@ -25,6 +25,10 @@
     - [Running multiple Nginx servers](#running-multiple-nginx-servers)
     - [Notes IV](#notes-iv)
     - [Cleaning up stopped containers](#cleaning-up-stopped-containers)
+  - [Running Python Applications in Docker](#running-python-applications-in-docker)
+    - [Get python image](#get-python-image)
+    - [Simple Python program](#simple-python-program)
+    - [CHALLENGE Simple Python calendar app](#challenge-simple-python-calendar-app)
 
 ### Docker Setup
 
@@ -155,6 +159,8 @@
 - Check history `docker history alpine`
 - Run in background with `-d` `docker run -p 8081:80 -d nginx`
 
+[⬆️ Go to Context](#context)
+
 #### Notes III
 
 > [!NOTE]
@@ -211,7 +217,7 @@
 > - To remove all containers `docker rm $(docker ps -a -q)`
 > - To restart a previously run container `docker start/restart name/id`
 > - To get into running container `docker attach running_container_id`
-> - To restart and get into container `docker start -ai container_id`
+> - To start and get into container `docker start -ai container_id`
 
 [⬆️ Go to Context](#context)
 
@@ -222,5 +228,51 @@
 - `docker rm name/id` is used to remove a container
 - Remove multiple containers `docker rm container_id1 container_id2`
 - Remove all containers `docker container prune`
+
+[⬆️ Go to Context](#context)
+
+### Running Python Applications in Docker
+
+#### Get python image
+
+- Run `docker pull python` to get the image
+- Run `docker run -it python` to run the image
+- `help()` to get the list of commands
+- `q` to exit from `help` section
+- `exit` to exit from python container
+
+[⬆️ Go to Context](#context)
+
+#### Simple Python program
+
+- Create a file `containers/python/first.py`
+- Now run `docker run -it -v ${PWD}/containers/python/:/app python python3 app/first.py`
+  - Here normally we run `docker run -it python` to run the python container
+  - `-v ${PWD}/containers/python/:/app` → Mounts local folder to `/app` in the container.
+  - `python3 app/first.py` → Runs the Python file inside the container.
+  - We can add `-w /app` to change the working directory to `/app` and run the file from there.
+  - `docker run -it -v ${PWD}/containers/python/:/app -w /app python python3 first.py`
+
+[⬆️ Go to Context](#context)
+
+#### CHALLENGE Simple Python calendar app
+
+- Show a month of the year in the terminal using the `calendar` module
+
+  - Create the file `containers/python/calender_app.py`
+
+    ```py
+    import calendar
+
+    print("Welcome to the calender application")
+
+    year = int(input("Enter any year number: "))
+    month = int(input("Enter any month number: "))
+
+    print(calendar.month(year, month))
+    print("Have a nice day :)")
+    ```
+
+- Run `docker run -it -v ${PWD}/containers/python/:/app -w /app python python3 calender_app.py`
 
 [⬆️ Go to Context](#context)
