@@ -52,10 +52,10 @@
 - Run `docker run ubuntu`
 - See detail log or running container `docker ps -a`
 - Only using `run` command it existed immediately
-- Run ubuntu container by `docker run -it ubuntu`
-- See list of bin inside ubuntu container `ls bin`
+- Run Ubuntu container by `docker run -it ubuntu`
+- See list of bin inside Ubuntu container `ls bin`
 - Get host details by running `hostname -i`
-- Get the details of running ubuntu `cat /etc/os-release`
+- Get the details of running Ubuntu `cat /etc/os-release`
 - Exit container by running `exit`
 
 [⬆️ Go to Context](#context)
@@ -90,7 +90,7 @@
 > - To run a container interactively `docker run -it image_name`
 > - To exit a container `exit`
 > - To get the list of running container `docker ps`
-> - `-it` is refer to `interactive` & `TTY`
+> - `-it` is referred to `interactive` & `TTY`
 
 [⬆️ Go to Context](#context)
 
@@ -104,7 +104,7 @@
   - It will refuse to connect
   - Stop the container
   - To stop a running container `docker stop container_id`
-    > only first three letter of the `container_id` will do the work
+    > only first three letters of the `container_id` will do the work
   - Run `docker run -p 8080:80 nginx`
   - Now navigate to `localhost:8080`
 
@@ -112,16 +112,16 @@
 
 #### Nginx container with custom content
 
-- Create html file `index.html`
+- Create HTML file `index.html`
 - Copy the path where `index.html` is created `full_path_of_ngnix_container`
   - `H:...\Docker-and-Kubernetes\containers\ngnix`
 - Now run `docker run -p 8081:80 -v "full_path_of_ngnix_container:/usr/share/nginx/html" nginx`
-  > In powershell: `docker run -p 8081:80 -v ${PWD}:/usr/share/nginx/html nginx`
+  > In PowerShell: `docker run -p 8081:80 -v ${PWD}:/usr/share/nginx/html nginx`
 - Navigate to `localhost:8081` to see the output of `index.html`
 - Adding favicon to the project
   - Generate free favicon from text [favicon.io](https://favicon.io/favicon-generator/)
   - Unzip the downloaded favicon in `index.html` path
-  - Now add those in the head section of html
+  - Now add those in the head section of HTML
 
     ```html
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -134,7 +134,7 @@
 
 #### Using path variable in volume mapping
 
-- In linux run `docker run -p 8081:80 -v $PWD:/usr/share/nginx/html nginx`
+- In Linux run `docker run -p 8081:80 -v $PWD:/usr/share/nginx/html nginx`
 - In windows `PowerShell` or `Git Bash` run `docker run -p 8081:80 -v ${PWD}:/usr/share/nginx/html nginx`
 
 [⬆️ Go to Context](#context)
@@ -144,9 +144,9 @@
 > [!NOTE]
 >
 > - To stop a container `docker stop container_id`
-> - `-p` is refer to port & `-v` is refer to `volume`
-> - For valume mapping `$PWD` is used
-> - New name can be assign by `--name` option
+> - `-p` is referred to port & `-v` is referred to `volume`
+> - For volume mapping `$PWD` is used
+> - New name can be assigned by `--name` option
 
 [⬆️ Go to Context](#context)
 
@@ -155,7 +155,7 @@
 #### Running containers in background
 
 - Run `docker run hello-world`
-  - This will terminate automatically as there is no process to run in the container. Same goes for `docker run alpine`
+  - This will terminate automatically as there is no process to run in the container. The same goes for `docker run alpine`
 - Check history `docker history alpine`
 - Run in background with `-d` `docker run -p 8081:80 -d nginx`
 
@@ -172,7 +172,7 @@
 
 #### Running container with Pseudo TTY
 
-- To run a container with a **Pseudo TTY**, we use the `-t` option. 
+- To run a container with a **Pseudo TTY**, we use the `-t` option.
   - `docker run -i -t alpine`
 - We can also combine `-i` (interactive) and `-t` (TTY) into a single option
   - `docker run -it alpine`
@@ -189,7 +189,7 @@
   - Each container has a unique Container ID.
     - `docker ps -a --format "{{.ID}} {{.Image}}"`
   - Each container runs in isolation from the others.
-  - Each container has its own filesystem and processes.
+  - Each container has its own file system and processes.
     - We can check it by creating different files in those containers
   - Each container has different IP addresses assigned by Docker.
     - `hostname -i`
@@ -205,7 +205,7 @@
   - Run `docker run -p 8082:80 -v ${PWD}:/usr/share/nginx/html --name nginx2 nginx`
 - Now we can access both nginx by navigating to `localhost:8081` and `localhost:8082`
 
-> As we are using different ports, we can run multiple containers on ngnix
+> As we are using different ports, we can run multiple containers on Nginx
 
 [⬆️ Go to Context](#context)
 
