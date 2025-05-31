@@ -29,6 +29,7 @@
     - [Get python image](#get-python-image)
     - [Simple Python program](#simple-python-program)
     - [CHALLENGE Simple Python calendar app](#challenge-simple-python-calendar-app)
+    - [Notes V](#notes-v)
 
 ### Docker Setup
 
@@ -228,6 +229,7 @@
 - `docker rm name/id` is used to remove a container
 - Remove multiple containers `docker rm container_id1 container_id2`
 - Remove all containers `docker container prune`
+- Remove all containers & images `docker system prune -a -f`
 
 [⬆️ Go to Context](#context)
 
@@ -274,5 +276,14 @@
     ```
 
 - Run `docker run -it -v ${PWD}/containers/python/:/app -w /app python python3 calender_app.py`
+
+[⬆️ Go to Context](#context)
+
+#### Notes V
+
+> [!NOTE]
+>
+> - In cmd `${PWD}` won't work so use `%cd%`
+> - `docker run -it -v "%cd%/containers/python/:/app" -w /app python python3 calender_app.py`
 
 [⬆️ Go to Context](#context)
