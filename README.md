@@ -30,6 +30,8 @@
     - [Simple Python program](#simple-python-program)
     - [CHALLENGE Simple Python calendar app](#challenge-simple-python-calendar-app)
     - [Notes V](#notes-v)
+  - [Running Node.js Applications in Docker](#running-nodejs-applications-in-docker)
+    - [Running Node.js container](#running-nodejs-container)
 
 ### Docker Setup
 
@@ -285,5 +287,19 @@
 >
 > - In cmd `${PWD}` won't work so use `%cd%`
 > - `docker run -it -v "%cd%/containers/python/:/app" -w /app python python3 calender_app.py`
+
+[⬆️ Go to Context](#context)
+
+### Running Node.js Applications in Docker
+
+#### Running Node.js container
+
+- Pull node image
+  - `docker pull node`
+- Run the container
+  - `docker run -it node`
+- Exit by `.exit`
+
+> Here `docker run node` will exit immediately so `-it` is used for REPL(Read Eval Print Loop) interactively and give it a `TTY` and `stdin`
 
 [⬆️ Go to Context](#context)
