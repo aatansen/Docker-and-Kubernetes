@@ -32,6 +32,7 @@
     - [Notes V](#notes-v)
   - [Running Node.js Applications in Docker](#running-nodejs-applications-in-docker)
     - [Running Node.js container](#running-nodejs-container)
+    - [Hello World Application with Node](#hello-world-application-with-node)
 
 ### Docker Setup
 
@@ -301,5 +302,28 @@
 - Exit by `.exit`
 
 > Here `docker run node` will exit immediately so `-it` is used for REPL(Read Eval Print Loop) interactively and give it a `TTY` and `stdin`
+
+[⬆️ Go to Context](#context)
+
+#### Hello World Application with Node
+
+- Create [hello.js](./containers/node/hello.js) inside [containers](./containers/node/)
+
+  ```js
+  console.log("Executed by Node.js container!");
+  ```
+
+- Now run the command
+
+  ```sh
+  docker run -it -v "%cd%/containers/node/:/app" -w /app node node hello.js
+  ```
+
+  - Here `-it` is `TTY` and `stdin` for REPL(Read Eval Print Loop)
+  - `-v "%cd%/containers/node/:/app"` is volume assign to `/app`path
+  - `-w /app` which is working directory
+  - `node` is image name
+  - and finally `node hello.js` which will be run after the creation of the container
+  - So simply it is `docker run -it node hello.js` with more extra things
 
 [⬆️ Go to Context](#context)
