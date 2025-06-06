@@ -33,6 +33,7 @@
   - [Running Node.js Applications in Docker](#running-nodejs-applications-in-docker)
     - [Running Node.js container](#running-nodejs-container)
     - [Hello World Application with Node](#hello-world-application-with-node)
+    - [Express web server using Node](#express-web-server-using-node)
 
 ### Docker Setup
 
@@ -325,5 +326,46 @@
   - `node` is image name
   - and finally `node hello.js` which will be run after the creation of the container
   - So simply it is `docker run -it node hello.js` with more extra things
+
+[⬆️ Go to Context](#context)
+
+#### Express web server using Node
+
+- Create [express](./containers/node/express/) folder inside [containers/node](./containers/node/)
+- Get a [sample code](https://www.npmjs.com/package/express) of express server to run
+
+  ```js
+  import express from 'express'
+
+  const app = express()
+
+  app.get('/', (req, res) => {
+    res.send('Express app executed by Node.js Container')
+  })
+
+  app.listen(3000)
+  ```
+
+- Now to run Express app we need to install it first
+- Initial it
+
+  ```sh
+  docker run -it -v "%cd%/containers/node/express/:/app" -w /app node npm init
+  ```
+
+- Now install express
+
+  ```sh
+  docker run -it -v "%cd%/containers/node/express/:/app" -w /app node npm install express
+  ```
+
+- Now run the express app
+
+  ```js
+  docker run -it -v "%cd%/containers/node/express/:/app" -w /app -p 3000:3000 node node app.js
+  ```
+
+  - Here `-p <external>:<internal>` port mapping is done otherwise it will reject
+
 
 [⬆️ Go to Context](#context)
