@@ -34,6 +34,7 @@
     - [Running Node.js container](#running-nodejs-container)
     - [Hello World Application with Node](#hello-world-application-with-node)
     - [Express web server using Node](#express-web-server-using-node)
+    - [Add handling of the SIGINT and SIGTERM signals (CTRL+C)](#add-handling-of-the-sigint-and-sigterm-signals-ctrlc)
 
 ### Docker Setup
 
@@ -367,5 +368,24 @@
 
   - Here `-p <external>:<internal>` port mapping is done otherwise it will reject
 
+[⬆️ Go to Context](#context)
+
+#### Add handling of the SIGINT and SIGTERM signals (CTRL+C)
+
+- Edit and add process to enable `SIGINT` & `SIGTERM`
+
+  ```js
+  import process from 'process'
+
+  process.on('SIGINT',()=>{
+      console.log('Application is being interrupted...');
+      process.exit(0)
+  })
+
+  process.on('SIGTERM',()=>{
+      console.log('Application is being terminated...');
+      process.exit(0)
+  })
+  ```
 
 [⬆️ Go to Context](#context)
