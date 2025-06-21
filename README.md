@@ -35,6 +35,7 @@
     - [Hello World Application with Node](#hello-world-application-with-node)
     - [Express web server using Node](#express-web-server-using-node)
     - [Add handling of the SIGINT and SIGTERM signals (CTRL+C)](#add-handling-of-the-sigint-and-sigterm-signals-ctrlc)
+    - [CHALLENGE Create files handling Node app](#challenge-create-files-handling-node-app)
 
 ### Docker Setup
 
@@ -386,6 +387,45 @@
       console.log('Application is being terminated...');
       process.exit(0)
   })
+  ```
+
+[⬆️ Go to Context](#context)
+
+#### CHALLENGE Create files handling Node app
+
+> [!NOTE] Task
+> Ask user to enter a file name and its content and create it using node module `fs` and `readline`
+>
+> Run the file in docker
+
+- Create a file [challenge01.js](./containers/node/files/challenge01.js) in [files](./containers/node/files/)
+  
+  ```js
+  const readline = require('readline');
+  const fs = require('fs');
+
+  // Create interface for input/output
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  rl.question('Enter file name: ', (name) => {
+    rl.question('Enter some text: ', (text) => {
+      let filePath = name + '.txt';
+      fs.writeFile(filePath,text,(err)=>{
+        if (err) throw err
+      console.log('File created successfully!');
+      rl.close();
+      })
+    });
+  });
+  ```
+
+- Run it
+
+  ```sh
+  docker run -it -v "%cd%/containers/node/files/:/app" -w /app node node challenge01.js
   ```
 
 [⬆️ Go to Context](#context)
