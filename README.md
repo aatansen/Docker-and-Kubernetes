@@ -393,7 +393,7 @@
 
 #### CHALLENGE Create files handling Node app
 
-> [!NOTE] Task
+> [!NOTE]
 > Ask user to enter a file name and its content and create it using node module `fs` and `readline`
 >
 > Run the file in docker
